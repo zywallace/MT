@@ -1,0 +1,333 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{theorem}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{enumitem}                     
+
+% This is the stuff for normal spacing
+%\makeatletter
+% \setlength{\textwidth}{6.5in}
+% \setlength{\oddsidemargin}{0in}
+% \setlength{\evensidemargin}{0in}
+% \setlength{\topmargin}{0.25in}
+% \setlength{\textheight}{8.25in}
+% \setlength{\headheight}{0pt}
+% \setlength{\headsep}{0pt}
+% \setlength{\marginparwidth}{59pt}
+%
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{5pt plus 1pt}
+% \setlength{\theorempreskipamount}{5pt plus 1pt}
+% \setlength{\theorempostskipamount}{0pt}
+% \setlength{\abovedisplayskip}{8pt plus 3pt minus 6pt}
+ 
+ 
+ \usepackage{titlesec}
+
+\titleformat*{\section}{\bfseries}
+\titleformat*{\subsection}{\bfseries}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries}
+
+% \renewcommand{\section}{\@startsection{section}{1}{0mm}%
+%                                   {2ex plus -1ex minus -.2ex}%
+%                                   {1.3ex plus .2ex}%
+%                                   {\normalfont\Large\bfseries}}%
+% \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+%                                     {1ex plus -1ex minus -.2ex}%
+%                                     {1ex plus .2ex}%
+%                                     {\normalfont\large\bfseries}}%
+% \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+%                                     {1ex plus -1ex minus -.2ex}%
+%                                     {1ex plus .2ex}%
+%                                     {\normalfont\normalsize\bfseries}}
+% \renewcommand\paragraph{\@startsection{paragraph}{4}{0mm}%
+%                                    {1ex \@plus1ex \@minus.2ex}%
+%                                    {-1em}%
+%                                    {\normalfont\normalsize\bfseries}}
+% \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+%                                       {2.0ex \@plus1ex \@minus .2ex}%
+%                                       {-1em}%
+%                                      {\normalfont\normalsize\bfseries}}
+%\makeatother
+
+\newenvironment{proof}{{\bf Proof:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofof}[1]{{\bf Proof of #1:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofofnobox}[1]{{\bf#1:  }}{}
+\newenvironment{example}{{\bf Example:  }}{\hfill\rule{2mm}{2mm}}
+%\renewcommand{\thesection}{\lecnum.\arabic{section}}
+
+%\renewcommand{\theequation}{\thesection.\arabic{equation}}
+%\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+
+%\renewcommand{\theequation}{\lecnum.\arabic{equation}}
+%\renewcommand{\thefigure}{\lecnum.\arabic{figure}}
+
+%\newcounter{LecNum}
+%\setcounter{LecNum}{1}
+
+%\newtheorem{fact}{Fact}[LecNum]
+\newtheorem{fact}{Fact}
+\newtheorem{lemma}[fact]{Lemma}
+\newtheorem{theorem}[fact]{Theorem}
+\newtheorem{definition}[fact]{Definition}
+\newtheorem{corollary}[fact]{Corollary}
+\newtheorem{proposition}[fact]{Proposition}
+\newtheorem{claim}[fact]{Claim}
+\newtheorem{exercise}[fact]{Exercise}
+
+% math notation
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\SymGrp}{\ensuremath{\mathfrak S}}
+
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\polylog}{\operatorname{polylog}}
+
+% anupam's abbreviations
+\newcommand{\e}{\epsilon}
+\newcommand{\half}{\ensuremath{\frac{1}{2}}}
+\newcommand{\junk}[1]{}
+\newcommand{\sse}{\subseteq}
+\newcommand{\union}{\cup}
+\newcommand{\meet}{\wedge}
+
+\newcommand{\prob}[1]{\ensuremath{\text{{\bf Pr}$\left[#1\right]$}}}
+\newcommand{\expct}[1]{\ensuremath{\text{{\bf E}$\left[#1\right]$}}}
+\newcommand{\Event}{{\mathcal E}}
+
+\newcommand{\mnote}[1]{\normalmarginpar \marginpar{\tiny #1}}
+
+\setenumerate[0]{label=(\alph*)}
+\hypersetup{
+colorlinks = true,
+urlcolor=blue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document begins here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\noindent {\large {\bf 600.468 Machine Tranlation} \hfill {{\bf Fall 2017}}}\\
+{{\bf Homework \#4 Multi-word Cloze}} \hfill {{\bf Name:} Yu Zhao, Fan Yang, Zikun Chen} \\
+
+\noindent \Large Overview:\\
+
+\normalsize For this assignment, the challenge is to achieve high accuracy when filling the missing words in a multi-word cloze task. 
+Among all conceptual methods to solve multi-word cloze tasks, neural network is one with relatively high accuracy. Compare to other models, neural network has the following advantages: words are projected into low dimensional space, similar words are automatically clustered together; smoothing is solved implicitly; training is done during backpropagation, etc.\\
+\indent However, we choose RNN (recurrent neural network) instead of traditional (feedforward) neural network to better solve multi-word cloze tasks since essentially RNN captures more comprehensive and detailed information about syntactic contexts, which will benefit our cloze task accuracy. \\
+\indent More specifically, compared to feedforward neural network, RNN has unlimited history length and it can compress the whole history into lower dimensional space, most importantly, RNN have possibility to form short term memory, which can be used to deal with position invariance.\\
+\indent To implement a RNN based language model, we use PyTorch module as the basic library. Specifically, we take advantage of the following classes: torch.nn.Module, torch.nn.Parameter, torch.autograd.Variable, torch.autograde.Function.\\
+\indent As an extensive implementation, we introduce dropout layer into our RNNLM model to minimize potential overfitting.\\
+
+\part{}
+%writeup for part1
+\Large implementation of uni-directional RNNLM:\\
+\\
+\normalsize \indent to implement a complete RNNLM, we need to implement these following classes beforehand, which are all subclasses of nn.Module:\\
+\indent class Linear, class Embedding, class RNN, class LogSoftmax.\\
+\indent 1. the implementation of linear layer looks like the following, which is straightforward, the only tricky part is that when initializing the weights and bias, we use uniform random initialization using values in range $(-stdv, stdv)$ instead of range $(0,1)$, and we define weights and bias to be trainable parameters.
+\begin{lstlisting}
+class Linear(nn.Module):
+    def __init__(self, in_size, out_size):
+        super(Linear, self).__init__()
+        self.w = nn.Parameter(torch.zeros(in_size, out_size))
+        self.b = nn.Parameter(torch.zeros(out_size))
+        # reset uniformly
+        stdv = 1. / math.sqrt(self.w.size(0))
+        self.w.data.uniform_(-stdv, stdv)
+        self.b.data.uniform_(-stdv, stdv)
+
+    def forward(self, input):
+        return torch.matmul(input, self.w) + self.b
+\end{lstlisting}
+\leavevmode
+\newline
+\indent 2. the embedding layer serves as a dimensionality reducer to compress the word tensor into a smaller size, we define the transformation function to be a trainable parameter, and we use advanced indexing to fetch the result.\\
+\indent Similarly, we need the same initialization trick here as the linear layer, which is to use uniform random initialization from range $(-stdv, stdv)$.\\
+\indent 3. we implemented our RNN module based on Mikolov's model description. The network has an input layer $x$, hidden layer $s$ (also called context layer or state) and output layer $y$. Input to the network in time t is $x(t)$, output is denoted as $y(t)$, and $s(t)$ is state of the network (hidden layer). Input vector $x(t)$ is formed by concatenating vector $w$ representing current word, and output from neurons in context layer $s$ at time $t-1$.\\
+\indent Specifically, we can write down the following formulas for calculating the vector $x(t)$:
+\begin{align*}
+x(t) = w(t) + s(t-1)
+\end{align*}
+\indent in our implementation, we build two corresponding layers respectively for $w$ and $s$ based on the linear layer module we have implemented earlier:
+\begin{lstlisting}
+class RNN(nn.Module):
+    def __init__(self, in_size, out_size):
+        super(RNN, self).__init__()
+        self.hidden_size = out_size
+        self.i2h = Linear(in_size, out_size) // i2h, layer w
+        self.h2h = Linear(out_size, out_size) // h2h, layer s
+        self.activation = torch.tanh // use tanh as activation function
+\end{lstlisting}
+\leavevmode
+\newline
+\indent then we can write the forward function based on formula $x(t) = w(t) + s(t-1)$ and the layers we have defined:
+\begin{lstlisting}
+def forward(self, input):
+        T = input.data.shape[0]
+        h = [Variable(torch.zeros(input.data.shape[1], self.hidden_size))]
+        # for each time step
+        for t in range(T):
+            h.append(self.activation(self.i2h(input[t]) + self.h2h(h[-1])))
+\end{lstlisting}
+\leavevmode
+\newline
+\indent 4. before we proceed to actually implementing RNNLM, we still have one last subclass to define, which is the activation layer for RNNLM based on softmax and element-wise log manipulation. Noted that in this subclass, we combine softmax and log together, so the dividing symbol turns into a subtracting symbol in our implementation.\\
+\indent Also, to maintain numeric stability and avoid potential overflow when calculating softmax, we subtract a fixed value from each input to avoid huge numeric value.\\
+\indent 5. the last step is to implement RNNLM by adding layers that are based on previously defined subclasses: embedding, linear, RNN, log softmax. The order of layers in RNNLM should be as shown in the following code:
+\begin{lstlisting}
+class RNNLM(nn.Module):
+    def __init__(self, vocab_size):
+        super(RNNLM, self).__init__()
+        self.input_size = vocab_size
+        self.embedding_size = 32
+        self.hidden_size = 16
+
+        self.layers = nn.ModuleList()
+        self.layers.append(Embedding(self.input_size, self.embedding_size))
+        self.layers.append(RNN(self.embedding_size, self.hidden_size))
+        self.layers.append(Linear(self.hidden_size, self.input_size))
+        self.layers.append(LogSoftmax())
+\end{lstlisting}
+\leavevmode
+\indent \textbf{result report}: when embedding size = 32, hidden size = 16, batch size = 48,
+our implementation of uni-directional RNN gives the converged dev negative log probability of 5.19.
+\part{}
+%writeup for part2
+\Large implementation of bi-directional RNNLM:\\
+\\
+\normalsize
+\indent most of the bi-directional RNNLM implementation is based on uni-directional RNNLM, with some modifications in RNN subclass.\\
+\indent When implementing bi-directional RNNLM, not only should we scan each input from start to end, we should also scan it from end to head and calculate the reversed input vector $x'(t)$ using $x'(t) = w'(t) + s'(t-1)$.\\
+\indent Hence, besides two layers $i2h$ and $h2h$ in uni-directional for $w$ and $s$, we need two more corresponding layers $i2h\_back$ and $h2h\_back$ for $w'$ and $s'$. 
+\begin{lstlisting}
+class RNN(nn.Module):
+    def __init__(self, in_size, out_size, bi_directional=False):
+        super(RNN, self).__init__()
+        self.hidden_size = out_size
+        self.i2h = Linear(in_size, out_size)
+        self.h2h = Linear(out_size, out_size)
+        self.activation = torch.tanh
+        self.bi_directional = bi_directional
+        if bi_directional:
+            self.i2h_back = Linear(in_size, out_size)
+            self.h2h_back = Linear(out_size, out_size)
+\end{lstlisting}
+\leavevmode
+\newline
+\indent in the forward function, we should also concatenate the two results produced by scanning in two different directions, to form the final result for returning.\\
+\indent \textbf{result report}: when embedding size = 32, hidden size = 16, batch size = 48,
+our implementation of uni-directional RNN gives the converged dev negative log probability of 4.19.
+\part{}
+%writeup for part3
+\leavevmode
+\newline
+\indent \texttt{decoder.py} would do the multi-word cloze task given the output of \texttt{RNNLM}. For each token of the output, it just take the index of entry with max value (probability) and then look at the vocab to retrieve the word.\\
+\indent From extension, we implemented the inverted dropout layer.\\
+\indent \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Normal dropout} would drop a neuron with probability of $p$ during training. At evaluation time layer would scale activations by dropout rate $p$ to match expected value.\\
+\indent For inverted dropout (implemented in our project), scaling is applied at the training time. First, dropout a neuron with probability of $p$ as usual, and then scale them by factor $1/p$. For evaluation, dropout layer becomes an identical layer. One of advantages of inverted dropout over original dropout is it would make inference faster during evaluation.\\
+\indent Since people use dropout to prevent overfit, we then managed to add dropout layer after the embedding layer and RNN layer. For embedding layer's output, since it's really informative (close to input) and we don't want to lost valuable information, we set the $p = 0.2$. $p =  0.5$ should be reasonable for RNN as well.\\
+\indent the result is submitted through leaderboard, the eventual converged dev negative log probability is around 3.99
+\part{}
+%writeup for part4
+\leavevmode
+\indent to measure the speedup when using GPU compared to CPU, we use bi-directional RNNLM with dropout layer working, which is the version implemented after part 3. The completion time here indicates how long it took to complete one epoch. the speedup is simply computed by $cpu\_time / gpu\_time$.
+\begin{flushleft}
+ \begin{tabular}{||c c c c||} 
+ \hline
+ batch size & cpu completion time & gpu completion time & speedup \\ [0.5ex] 
+ \hline\hline
+ 16& 312s & 57s & 5.47 \\ 
+ \hline
+ 32 & 326s & 35s & 9.31 \\
+ \hline
+ 48 & 334s & 24s & 13.92 \\
+ \hline
+ 64 & 348s & 23s & 15.13 \\
+ \hline
+\end{tabular}
+\end{flushleft}
+\leavevmode
+\newline
+\indent as can be seen on the table above, with the batch increasing, the speedup gained by switching from CPU to GPU also improved. However, we cannot simply increase batch size without limit to achieve better speedup, because if the batch size exceeds certain scale, the data cannot fit into the limited GPU memory all at once, which will make our training fail. So, generally speaking, increasing the batch size will improve the speedup as long as the GPU memory is sufficient.
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
