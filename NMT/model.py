@@ -166,8 +166,6 @@ class NMT(nn.Module):
                                   requires_grad=False)
         if src.is_cuda:
             decoder_output = decoder_output.cuda()
-            self.SOS = self.SOS.cuda()
-            self.EOS = self.EOS.cuda()    
             
         if trg is not None:
             trg = trg[:-1]#exclude EOS
@@ -176,16 +174,18 @@ class NMT(nn.Module):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
         else:
-            self.SOS = self.SOS.expand(1, src.size(1))
-            self.EOS = self.EOS.expand(1, src.size(1))
-            
+            SOS = self.SOS.expand(1, src.size(1))
+            EOS = self.EOS.expand(1, src.size(1))
+            if src.is_cuda:
+                SOS = SOS.cuda()
+                EOS = EOS.cuda()
             MAX_LENGTH = self.MAX_LENGTH if trg_len is None else trg_len
-            input = self.SOS
+            input = SOS
             for i in range(MAX_LENGTH):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
                 input = torch.max(self.norm(self.out(decoder_output)), dim = 2)[1]
-                if trg_len is None and input.equal(self.EOS):
+                if trg_len is None and input.equal(EOS):
                     break
         output = torch.stack(output).squeeze(1)
         return self.norm(self.out(output))
