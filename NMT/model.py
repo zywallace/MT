@@ -75,14 +75,14 @@ class Decoder(nn.Module):
             last_hidden(tuple): hidden state of decoder's RNN at time t - 1
 
         Returns:
-            outputs(FloatTensor): decoder's attention layer's output - shape: (trg_len, batch, hidden_size)
+            outputs(FloatTensor): decoder's attention layer's output - shape: (1, batch, hidden_size)
         """
         emb = self.embeddings(input)
 
         # concat with last rnn output - shape: (1, batch, hidden_size + trg_embedding_size)
         rnn_input = torch.cat([emb, last_output], 2)
 
-        # rnn_output - shape: (batch, hidden_size)
+        # rnn_output - shape: (1, batch, hidden_size)
         rnn_output, hidden = self.rnn(rnn_input, last_hidden)
         output = self.attn(rnn_output, encoder_output)
 
@@ -167,8 +167,8 @@ class NMT(nn.Module):
         if src.is_cuda:
             decoder_output = decoder_output.cuda()
             self.SOS = self.SOS.cuda()
-            self.EOS = self.EOS.cuda()
-
+            self.EOS = self.EOS.cuda()    
+            
         if trg is not None:
             trg = trg[:-1]#exclude EOS
             for t in trg.split(1):
@@ -176,14 +176,16 @@ class NMT(nn.Module):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
         else:
+            self.SOS = self.SOS.expand(1, src.size(1))
+            self.EOS = self.EOS.expand(1, src.size(1))
+            
             MAX_LENGTH = self.MAX_LENGTH if trg_len is None else trg_len
             input = self.SOS
             for i in range(MAX_LENGTH):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
-                input = torch.max(self.norm(self.out(decoder_output)))[1].squeeze()
-                if input.equal(self.EOS):
+                input = torch.max(self.norm(self.out(decoder_output)), dim = 2)[1]
+                if trg_len is None and input.equal(self.EOS):
                     break
-
-        output = torch.stack(output).squeeze()
+        output = torch.stack(output).squeeze(1)
         return self.norm(self.out(output))
