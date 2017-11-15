@@ -11,9 +11,12 @@ def main(options):
     _, _, trg_test, trg_vocab = torch.load(open(options.data_file + "." + options.trg_lang, 'rb'))
 
     nmt = NMT(src_vocab, trg_vocab, opt=options)
+    nmt.eval()
     param = torch.load(options.model_file, lambda storage, loc: storage)
     nmt.load_state_dict(param)
-    for src in src_test:
+    for i, src in enumerate(src_test):
+        if i % 100 == 0:
+            stderr.write(str(i) + "\n")
         output = nmt(Variable(src.unsqueeze(1), volatile=True), None, None, None).squeeze()
         trg_index = torch.max(output, dim=1)[1]
         trg = []
@@ -21,10 +24,10 @@ def main(options):
         for index in trg_index:
             trg.append(trg_vocab.itos[index])
         print(" ".join(trg))
-
+    nmt.train()
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     translation_opts(parser)
     opt = parser.parse_args()
-    stderr.write(opt.__str__())
+    stderr.write(opt.__str__() + "\n")
     main(opt)

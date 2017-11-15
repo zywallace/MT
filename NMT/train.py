@@ -16,6 +16,8 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, options, training):
     num_batch = len(src[0])
     loss = 0
     i = 0
+    if not training:
+        model.eval()
     for src_batch, src_mask, trg_batch, trg_mask in next_batch(src, trg, use_cuda, num_batch, training):
         # trg_len, batch, trg_vocab_size
         if training:
@@ -37,6 +39,8 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, options, training):
         if training and i % options.show == 0:
             logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
     loss /= num_batch
+    if not training:
+        model.train()
     return loss
 
 
