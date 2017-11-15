@@ -169,6 +169,7 @@ class NMT(nn.Module):
             decoder_output = decoder_output.cuda()
 
         if trg is not None:
+            trg = trg[:-1]#exclude EOS
             for t in trg.split(1):
                 input = t
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
