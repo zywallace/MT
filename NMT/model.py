@@ -21,7 +21,7 @@ class Encoder(nn.Module):
         self.embeddings = nn.Embedding(src_vocab_size, src_embedding_size, padding_idx=pad_idx)
         self.rnn = nn.LSTM(src_embedding_size, hidden_size, bidirectional=True)
 
-    def forward(self, input, mask):
+    def forward(self, input, mask = None):
         """
         Args:
             input(LongTensor): a batch of source language sentences - shape: (src_len, batch)
@@ -34,10 +34,14 @@ class Encoder(nn.Module):
                     c_n(FloatTensor): final LSTM cell state - shape: (1, batch, 2 * hidden_size)
         """
         emb = self.embeddings(input)
-        lengths = torch.sum(mask, dim=0).data.tolist()
-        packed = pack(emb, lengths)
+        
+        packed = emb
+        if mask is not None:
+            lengths = torch.sum(mask, dim=0).data.tolist()
+            packed = pack(emb, lengths)
         output, hidden = self.rnn(packed, None)
-        output, output_lengths = unpack(output)
+        if mask is not None:
+            output, output_lengths = unpack(output)
 
         hidden = tuple([torch.cat([h[0::2], h[1::2]], 2) for h in hidden])
         return output, hidden
@@ -160,7 +164,7 @@ class NMT(nn.Module):
         if trg is None:
             assert src.size(1) == 1, "batch size has to be 1 for translation, while given {}".format(src.size(1))
 
-        encoder_output, hidden = self.encoder(src, src_mask)
+        encoder_output, hidden = self.encoder(src)
         output = []
         decoder_output = Variable(torch.zeros(1, encoder_output.size(1), encoder_output.size(2)),
                                   requires_grad=False)
