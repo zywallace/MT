@@ -1,4 +1,4 @@
-def nmt_opts(parser):
+def train_opts(parser):
     parser.add_argument("--data_file", default="data/hw5",
                         help="File prefix for training set.")
     parser.add_argument("--src_lang", default="words",
@@ -23,3 +23,15 @@ def nmt_opts(parser):
                         help="ID of gpu device to use. Empty implies cpu usage.")
     parser.add_argument("--show", default=1000, type=int,
                         help="show loss every ? batch default = 200")
+
+
+def translation_opts(parser):
+    parser.add_argument("--data_file", default="data/hw5",
+                        help="File prefix for training set.")
+    parser.add_argument("--src_lang", default="words",
+                        help="Source Language. (default = words)")
+    parser.add_argument("--trg_lang", default="phoneme",
+                        help="Target Language. (default = phoneme)")
+    parser.add_argument("--model_file", required=True,
+                        help="Path of saved model.")
+    parser.add_argument("--max_length", default=50, type=int, help="Max length of translated sentence")

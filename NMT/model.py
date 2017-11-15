@@ -36,7 +36,7 @@ class Encoder(nn.Module):
         emb = self.embeddings(input)
         
         packed = emb
-        if mask is not None:
+        if mask is not None:#for training
             lengths = torch.sum(mask, dim=0).data.tolist()
             packed = pack(emb, lengths)
         output, hidden = self.rnn(packed, None)
@@ -136,7 +136,7 @@ class Attention(nn.Module):
 
 
 class NMT(nn.Module):
-    def __init__(self, src, trg, src_emb=300, trg_emb=300, hidden_size=1024):
+    def __init__(self, src, trg, src_emb=300, trg_emb=300, hidden_size=1024, opt=None):
         """
         Args:
             src_vocab_size(int):
@@ -149,7 +149,7 @@ class NMT(nn.Module):
         self.norm = nn.LogSoftmax(dim=2)
         self.SOS = Variable(torch.LongTensor([trg.stoi["<s>"]]), volatile=True, requires_grad=False)
         self.EOS = Variable(torch.LongTensor([trg.stoi["</s>"]]), volatile=True, requires_grad=False)
-        self.MAX_LENGTH = 50
+        self.MAX_LENGTH = 50 if opt is None else opt.max_length
     def forward(self, src, src_mask, trg, trg_len):
         """
         Args:

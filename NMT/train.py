@@ -1,6 +1,6 @@
 from __future__ import division
 from data_ops import load_data, next_batch, flat
-import opts
+from opts import train_opts
 import dill
 import argparse, logging
 import torch
@@ -79,7 +79,7 @@ def main(options):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Starter code for JHU CS468 Machine Translation HW5.")
-    opts.nmt_opts(parser)
+    train_opts(parser)
     opt = parser.parse_args()
     logging.info(opt.__str__())
     main(opt)
