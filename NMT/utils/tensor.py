@@ -35,14 +35,14 @@ def advanced_batchize(data, batch_size, pad_index):
   :return [(seq_len, batch_size)], order of sorted data
   """
   # rank by data length
-  sorted_data = sorted(data, key=lambda sent: -len(sent))
-  sort_index = sorted(range(len(data)), key=lambda k: -len(data[k]))
+  sorted_data = sorted(data, key=lambda sent: len(sent))
+  sort_index = sorted(range(len(data)), key=lambda k: len(data[k]))
   batchized_data = []
   batchized_mask = []
   # except for last batch
   for start_i in range(0, len(sorted_data) - batch_size, batch_size):
     batch_data = sorted_data[start_i: start_i + batch_size]
-    seq_len = len(batch_data[0])
+    seq_len = len(batch_data[-1])
     batch_tensor = (torch.ones((seq_len, batch_size)) * pad_index).long()
     mask_tensor = torch.zeros((seq_len, batch_size)).byte()
     for idx, sent_data in enumerate(batch_data):
@@ -55,7 +55,7 @@ def advanced_batchize(data, batch_size, pad_index):
   # last batch
   if len(sorted_data) % batch_size != 0:
     batch_data = sorted_data[len(sorted_data) // batch_size * batch_size:]
-    seq_len = len(batch_data[0])
+    seq_len = len(batch_data[-1])
     batch_tensor = (torch.ones((seq_len, batch_size)) * pad_index).long()
     mask_tensor = torch.zeros((seq_len, batch_size)).byte()
     for idx, sent_data in enumerate(batch_data):

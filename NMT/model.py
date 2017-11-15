@@ -160,10 +160,7 @@ class NMT(nn.Module):
         Returns:
             output(FloatTensor): normalized word distribution - shape: (trg_len, batch, trg_vocab_size)
         """
-        # should we shift sequence here?
-        if trg is None:
-            assert src.size(1) == 1, "batch size has to be 1 for translation, while given {}".format(src.size(1))
-
+        
         encoder_output, hidden = self.encoder(src)
         output = []
         decoder_output = Variable(torch.zeros(1, encoder_output.size(1), encoder_output.size(2)),

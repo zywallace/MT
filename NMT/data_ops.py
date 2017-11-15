@@ -58,12 +58,9 @@ def next_batch(src, trg, use_cuda, range, training):
         yield src_batch, src_masks, trg_batch, trg_masks
 
 
-def flat(output, trg, trg_mask):
-    size = output.size(2)
-    trg_mask = trg_mask.view(-1)
+def flat(output, trg):
+    C = output.size(2)
+    
     trg = trg.view(-1)
-    trg = trg.masked_select(trg_mask)
-    trg_mask = trg_mask.unsqueeze(1).expand(len(trg_mask), size)
-    output = output.view(-1, size)
-    output = output.masked_select(trg_mask).view(-1, size)
+    output = output.view(-1, C)
     return trg, output
