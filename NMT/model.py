@@ -166,6 +166,8 @@ class NMT(nn.Module):
                                   requires_grad=False)
         if src.is_cuda:
             decoder_output = decoder_output.cuda()
+            self.SOS = self.SOS.cuda()
+            self.EOS = self.EOS.cuda()
 
         if trg is not None:
             trg = trg[:-1]#exclude EOS
