@@ -78,7 +78,10 @@ def main(options):
         train_src_mask = train_src_mask.cuda()
         train_trg_mask = train_trg_mask.cuda()
 
+
       sys_out_batch = nmt(train_src_batch, None, train_trg_batch, train_trg_batch.size(0) - 1)  # (trg_seq_len, batch_size, trg_vocab_size) # TODO: add more arguments as necessary
+      train_trg_batch = train_trg_batch[1:]
+      train_trg_mask = train_trg_mask[1:]
       train_trg_mask = train_trg_mask.view(-1)
       train_trg_batch = train_trg_batch.view(-1)
       train_trg_batch = train_trg_batch.masked_select(train_trg_mask)
@@ -105,6 +108,8 @@ def main(options):
         dev_trg_mask = dev_trg_mask.cuda()
 
       sys_out_batch = nmt(dev_src_batch, None, None, dev_trg_batch.size(0) - 1)  # (trg_seq_len, batch_size, trg_vocab_size) # TODO: add more arguments as necessary
+      dev_trg_batch = dev_trg_batch[1:]
+      dev_trg_mask = dev_trg_mask[1:]
       dev_trg_mask = dev_trg_mask.view(-1)
       dev_trg_batch = dev_trg_batch.view(-1)
       dev_trg_batch = dev_trg_batch.masked_select(dev_trg_mask)
