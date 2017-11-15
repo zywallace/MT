@@ -21,7 +21,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
         out_batch = model(src_batch, src_mask, trg_batch)
 
         # trg_batch - shape: (N) out_batch - shape: (N, trg_vocab_size)
-        trg_batch, out_batch = flat(out_batch, trg_batch, trg_mask)
+        trg_batch, out_batch = flat(out_batch, trg_batch)
 
         batch_loss = criterion(out_batch, trg_batch)
 
@@ -32,9 +32,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
         loss += batch_loss.data[0]
         i += 1
         if i % 500 == 0:
-            logging.info("Average loss value per instance is {:.5f} at batch {}, batch loass {:.5f}".format(loss / i, i,
-                                                                                                            batch_loss.data[
-                                                                                                                0]))
+            logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
     loss /= num_batch
     return loss
 
@@ -68,6 +66,7 @@ def main(options):
         logging.info("Average loss value per instance is {0} at the end of epoch {1}".format(loss, epoch_i))
         torch.save(nmt.state_dict(), open(options.model_file + ".nll_{0:.2f}.epoch_{1}".format(loss, epoch_i), 'wb'),
                    pickle_module=dill)
+        logging.info("model saved at " + options.model_file + ".nll_{0:.2f}.epoch_{1}".format(loss, epoch_i))
         if abs(prev_loss - loss) < options.estop:
             logging.info(
                 "Early stopping triggered with previous: {0:.4f} and current: {1:.4f})".format(prev_loss, loss))
