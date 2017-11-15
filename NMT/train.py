@@ -32,7 +32,9 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
         loss += batch_loss.data[0]
         i += 1
         if i % 500 == 0:
-            logging.info("Average loss value per instance is {:.5f} at batch {}, batch loass {:.5f}".format(loss / i, i, batch_loss.data[0]))
+            logging.info("Average loss value per instance is {:.5f} at batch {}, batch loass {:.5f}".format(loss / i, i,
+                                                                                                            batch_loss.data[
+                                                                                                                0]))
     loss /= num_batch
     return loss
 
@@ -41,14 +43,17 @@ def main(options):
     use_cuda = (len(options.gpuid) >= 1)
     logging.info("loading data")
     src, trg = load_data(options)
-    logging.info("loading finished")
+    logging.info("loading finished\n" + src.__str__() + "\n" + trg.__str__())
 
-    logging.info("init NMT with {} {} as <blank> in src and trg".format(src.stoi["<blank>"],trg.stoi["<blank>"]))
+
     nmt = NMT(src.vocab, trg.vocab)
 
     if use_cuda:
+        logging.info("init NMT with cuda enable")
         nmt.cuda()
         cuda.set_device(options.gpuid[0])
+    else:
+        logging.info("init NMT with cuda disable")
 
     criterion = torch.nn.NLLLoss()
     optimizer = eval("torch.optim." + options.optimizer)(nmt.parameters(), options.learning_rate)
@@ -68,6 +73,7 @@ def main(options):
                 "Early stopping triggered with previous: {0:.4f} and current: {1:.4f})".format(prev_loss, loss))
             break
         prev_loss = loss
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Starter code for JHU CS468 Machine Translation HW5.")
