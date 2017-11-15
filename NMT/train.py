@@ -21,7 +21,8 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
         out_batch = model(src_batch, src_mask, trg_batch)
 
         # trg_batch - shape: (N) out_batch - shape: (N, trg_vocab_size)
-        trg_batch, out_batch = flat(out_batch, trg_batch)
+        # exclude SOS
+        trg_batch, out_batch = flat(out_batch, trg_batch[1:,:])
 
         batch_loss = criterion(out_batch, trg_batch)
 
@@ -31,7 +32,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
             optimizer.step()
         loss += batch_loss.data[0]
         i += 1
-        if i % 500 == 0:
+        if i % 50 == 0:
             logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
     loss /= num_batch
     return loss
