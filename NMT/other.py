@@ -1,4 +1,4 @@
-import utils.tensor
+import utils.other
 import utils.rand
 
 import argparse
@@ -48,10 +48,10 @@ def main(options):
   src_train, src_dev, src_test, src_vocab = torch.load(open(options.data_file + "." + options.src_lang, 'rb'))
   trg_train, trg_dev, trg_test, trg_vocab = torch.load(open(options.data_file + "." + options.trg_lang, 'rb'))
 
-  batched_train_src, batched_train_src_mask, sort_index = utils.tensor.advanced_batchize(src_train, options.batch_size, src_vocab.stoi["<blank>"])
-  batched_train_trg, batched_train_trg_mask = utils.tensor.advanced_batchize_no_sort(trg_train, options.batch_size, trg_vocab.stoi["<blank>"], sort_index)
-  batched_dev_src, batched_dev_src_mask, sort_index = utils.tensor.advanced_batchize(src_dev, options.batch_size, src_vocab.stoi["<blank>"])
-  batched_dev_trg, batched_dev_trg_mask = utils.tensor.advanced_batchize_no_sort(trg_dev, options.batch_size, trg_vocab.stoi["<blank>"], sort_index)
+  batched_train_src, batched_train_src_mask, sort_index = utils.other.advanced_batchize(src_train, options.batch_size, src_vocab.stoi["<blank>"])
+  batched_train_trg, batched_train_trg_mask = utils.other.advanced_batchize_no_sort(trg_train, options.batch_size, trg_vocab.stoi["<blank>"], sort_index)
+  batched_dev_src, batched_dev_src_mask, sort_index = utils.other.advanced_batchize(src_dev, options.batch_size, src_vocab.stoi["<blank>"])
+  batched_dev_trg, batched_dev_trg_mask = utils.other.advanced_batchize_no_sort(trg_dev, options.batch_size, trg_vocab.stoi["<blank>"], sort_index)
   trg_vocab_size = len(trg_vocab)
   nmt = NMT(src_vocab,trg_vocab) # TODO: add more arguments as necessary
   if use_cuda > 0:
@@ -89,7 +89,7 @@ def main(options):
       sys_out_batch = sys_out_batch.view(-1, trg_vocab_size)
       sys_out_batch = sys_out_batch.masked_select(train_trg_mask).view(-1, trg_vocab_size)
       loss = criterion(sys_out_batch, train_trg_batch)
-      logging.debug("loss at batch {0}: {1}".format(i, loss.data[0]))
+      # logging.debug("loss at batch {0}: {1}".format(i, loss.data[0]))
       optimizer.zero_grad()
       loss.backward()
       optimizer.step()
@@ -117,7 +117,7 @@ def main(options):
       sys_out_batch = sys_out_batch.view(-1, trg_vocab_size)
       sys_out_batch = sys_out_batch.masked_select(dev_trg_mask).view(-1, trg_vocab_size)
       loss = criterion(sys_out_batch, dev_trg_batch)
-      logging.debug("dev loss at batch {0}: {1}".format(batch_i, loss.data[0]))
+      # logging.debug("dev loss at batch {0}: {1}".format(batch_i, loss.data[0]))
       dev_loss += loss
     dev_avg_loss = dev_loss / len(batched_dev_src)
     logging.info("Average loss value per instance is {0} at the end of epoch {1}".format(dev_avg_loss.data[0], epoch_i))
