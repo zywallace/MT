@@ -32,7 +32,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
         loss += batch_loss.data[0]
         i += 1
         if i % 10 == 0:
-            logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
+            logging.info("Average loss value per instance is {:.5f} at batch {}, batch loass {:.5f}".format(loss / i, i, batch_loss.data[0]))
     loss /= num_batch
     return loss
 
