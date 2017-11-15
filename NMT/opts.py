@@ -17,7 +17,7 @@ def train_opts(parser):
                         help="Learning rate of the optimization. (default=1e-3)")
     parser.add_argument("--momentum", default=0.9, type=float,
                         help="Momentum when performing SGD. (default=0.9)")
-    parser.add_argument("--estop", default=1e-2, type=float,
+    parser.add_argument("--estop", default=1e-4, type=float,
                         help="Early stopping criteria on the development set. (default=1e-2)")
     parser.add_argument("--gpuid", default=[], nargs='+', type=int,
                         help="ID of gpu device to use. Empty implies cpu usage.")
