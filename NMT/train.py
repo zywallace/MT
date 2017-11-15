@@ -31,7 +31,8 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
             optimizer.step()
         loss += batch_loss.data[0]
         i += 1
-        logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
+        if i % 10 == 0:
+            logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
     loss /= num_batch
     return loss
 
@@ -43,7 +44,7 @@ def main(options):
     logging.info("loading finished")
 
     logging.info("init NMT")
-    nmt = NMT(len(src.vocab), len(trg.vocab))  # TODO: add more arguments as necessary
+    nmt = NMT(src.vocab, trg.vocab)
 
     if use_cuda:
         nmt.cuda()
