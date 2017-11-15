@@ -22,7 +22,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
 
         # trg_batch - shape: (N) out_batch - shape: (N, trg_vocab_size)
         # exclude SOS
-        trg_batch, out_batch = flat(out_batch, trg_batch[1:,:])
+        trg_batch, out_batch = flat(out_batch, trg_batch[1:,:], trg_mask[1:,:])
 
         batch_loss = criterion(out_batch, trg_batch)
 

@@ -11,9 +11,9 @@ def nmt_opts(parser):
                         help="Batch size for training. (default=1)")
     parser.add_argument("--epochs", default=20, type=int,
                         help="Epochs through the data. (default=20)")
-    parser.add_argument("--optimizer", default="SGD", choices=["SGD", "Adadelta", "Adam"],
-                        help="Optimizer of choice for training. (default=SGD)")
-    parser.add_argument("--learning_rate", "-lr", default=0.1, type=float,
+    parser.add_argument("--optimizer", default="Adadelta", choices=["SGD", "Adadelta", "Adam"],
+                        help="Optimizer of choice for training. (default=Adadelta)")
+    parser.add_argument("--learning_rate", "-lr", default=1, type=float,
                         help="Learning rate of the optimization. (default=0.1)")
     parser.add_argument("--momentum", default=0.9, type=float,
                         help="Momentum when performing SGD. (default=0.9)")
