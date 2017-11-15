@@ -12,7 +12,7 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S', level=logging.DEBUG)
 
 
-def iter(src, trg, model, criterion, optimizer, use_cuda, training):
+def iter(src, trg, model, criterion, optimizer, use_cuda, options, training):
     num_batch = len(src[0])
     loss = 0
     i = 0
@@ -32,7 +32,7 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, training):
             optimizer.step()
         loss += batch_loss.data[0]
         i += 1
-        if i % 50 == 0:
+        if training and i % options.show == 0:
             logging.info("Average loss value per instance is {:.5f} at batch {}".format(loss / i, i))
     loss /= num_batch
     return loss
@@ -61,9 +61,9 @@ def main(options):
     for epoch_i in range(options.epochs):
         logging.info("At {0}-th epoch.".format(epoch_i))
         # train
-        iter(src.data["train"], trg.data["train"], nmt, criterion, optimizer, use_cuda, training=True)
+        iter(src.data["train"], trg.data["train"], nmt, criterion, optimizer, use_cuda, options, training=True)
 
-        loss = iter(src.data["dev"], trg.data["dev"], nmt, criterion, optimizer, use_cuda, training=False)
+        loss = iter(src.data["dev"], trg.data["dev"], nmt, criterion, optimizer, use_cuda, options, training=False)
         logging.info("Average loss value per instance is {0} at the end of epoch {1}".format(loss, epoch_i))
         torch.save(nmt.state_dict(), open(options.model_file + ".nll_{0:.2f}.epoch_{1}".format(loss, epoch_i), 'wb'),
                    pickle_module=dill)
@@ -79,4 +79,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Starter code for JHU CS468 Machine Translation HW5.")
     opts.nmt_opts(parser)
     opt = parser.parse_args()
+    logging.info(opt.__str__())
     main(opt)

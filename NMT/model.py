@@ -147,8 +147,8 @@ class NMT(nn.Module):
         self.decoder = Decoder(len(trg), trg.stoi["<blank>"], trg_emb, hidden_size)
         self.out = nn.Linear(hidden_size, len(trg))
         self.norm = nn.LogSoftmax(dim=2)
-        self.SOS = Variable(torch.LongTensor([trg.stoi["<s>"]]), volatile=True)
-        self.EOS = Variable(torch.LongTensor([trg.stoi["</s>"]]), volatile=True)
+        self.SOS = Variable(torch.LongTensor([trg.stoi["<s>"]]), volatile=True, requires_grad=False)
+        self.EOS = Variable(torch.LongTensor([trg.stoi["</s>"]]), volatile=True, requires_grad=False)
         self.MAX_LENGTH = 100
 
     def forward(self, src, src_mask, trg):
@@ -161,7 +161,7 @@ class NMT(nn.Module):
             output(FloatTensor): normalized word distribution - shape: (trg_len, batch, trg_vocab_size)
         """
         
-        encoder_output, hidden = self.encoder(src)
+        encoder_output, hidden = self.encoder(src, src_mask)
         output = []
         decoder_output = Variable(torch.zeros(1, encoder_output.size(1), encoder_output.size(2)),
                                   requires_grad=False)
