@@ -61,7 +61,7 @@ def main(options):
 
         loss = iter(src.data["dev"], trg.data["dev"], nmt, criterion, optimizer, use_cuda, training=False)
         logging.info("Average loss value per instance is {0} at the end of epoch {1}".format(loss, epoch_i))
-        torch.save(nmt, open(options.model_file + ".nll_{0:.2f}.epoch_{1}".format(loss, epoch_i), 'wb'),
+        torch.save(nmt.state_dict(), open(options.model_file + ".nll_{0:.2f}.epoch_{1}".format(loss, epoch_i), 'wb'),
                    pickle_module=dill)
         if abs(prev_loss - loss) < options.estop:
             logging.info(
