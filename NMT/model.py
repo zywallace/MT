@@ -149,9 +149,8 @@ class NMT(nn.Module):
         self.norm = nn.LogSoftmax(dim=2)
         self.SOS = Variable(torch.LongTensor([trg.stoi["<s>"]]), volatile=True, requires_grad=False)
         self.EOS = Variable(torch.LongTensor([trg.stoi["</s>"]]), volatile=True, requires_grad=False)
-        self.MAX_LENGTH = 100
-
-    def forward(self, src, src_mask, trg):
+        self.MAX_LENGTH = 50
+    def forward(self, src, src_mask, trg, trg_len):
         """
         Args:
             src(LongTensor): a batch of source language sentences - shape: (src_len, batch)
@@ -175,8 +174,9 @@ class NMT(nn.Module):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
         else:
+            MAX_LENGTH = self.MAX_LENGTH if trg_len is None else trg_len
             input = self.SOS
-            for i in range(self.MAX_LENGTH):
+            for i in range(MAX_LENGTH):
                 decoder_output, hidden = self.decoder(input, encoder_output, decoder_output, hidden)
                 output.append(decoder_output)
                 input = torch.max(self.norm(self.out(decoder_output)))[1].squeeze()

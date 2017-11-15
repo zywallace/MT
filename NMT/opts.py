@@ -21,5 +21,5 @@ def nmt_opts(parser):
                         help="Early stopping criteria on the development set. (default=1e-2)")
     parser.add_argument("--gpuid", default=[], nargs='+', type=int,
                         help="ID of gpu device to use. Empty implies cpu usage.")
-    parser.add_argument("--show", default=500, type=int,
+    parser.add_argument("--show", default=1000, type=int,
                         help="show loss every ? batch default = 200")

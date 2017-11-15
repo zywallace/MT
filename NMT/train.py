@@ -18,8 +18,10 @@ def iter(src, trg, model, criterion, optimizer, use_cuda, options, training):
     i = 0
     for src_batch, src_mask, trg_batch, trg_mask in next_batch(src, trg, use_cuda, num_batch, training):
         # trg_len, batch, trg_vocab_size
-        out_batch = model(src_batch, src_mask, trg_batch)
-
+        if training:
+            out_batch = model(src_batch, src_mask, trg_batch)
+        else:
+            out_batch = model(src_batch, src_mask, None, trg_batch.size(0))
         # trg_batch - shape: (N) out_batch - shape: (N, trg_vocab_size)
         # exclude SOS
         trg_batch, out_batch = flat(out_batch, trg_batch[1:,:], trg_mask[1:,:])
