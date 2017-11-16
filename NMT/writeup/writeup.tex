@@ -1,0 +1,247 @@
+\documentclass[11pt]{article}
+
+\usepackage{epsfig}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsmath}
+\usepackage{xspace}
+\usepackage{theorem}
+\usepackage{hyperref}
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\usepackage{enumitem}                     
+
+% This is the stuff for normal spacing
+%\makeatletter
+% \setlength{\textwidth}{6.5in}
+% \setlength{\oddsidemargin}{0in}
+% \setlength{\evensidemargin}{0in}
+% \setlength{\topmargin}{0.25in}
+% \setlength{\textheight}{8.25in}
+% \setlength{\headheight}{0pt}
+% \setlength{\headsep}{0pt}
+% \setlength{\marginparwidth}{59pt}
+%
+% \setlength{\parindent}{0pt}
+% \setlength{\parskip}{5pt plus 1pt}
+% \setlength{\theorempreskipamount}{5pt plus 1pt}
+% \setlength{\theorempostskipamount}{0pt}
+% \setlength{\abovedisplayskip}{8pt plus 3pt minus 6pt}
+ 
+ 
+ \usepackage{titlesec}
+
+\titleformat*{\section}{\bfseries}
+\titleformat*{\subsection}{\bfseries}
+\titleformat*{\subsubsection}{\bfseries}
+\titleformat*{\paragraph}{\bfseries}
+\titleformat*{\subparagraph}{\bfseries}
+
+% \renewcommand{\section}{\@startsection{section}{1}{0mm}%
+%                                   {2ex plus -1ex minus -.2ex}%
+%                                   {1.3ex plus .2ex}%
+%                                   {\normalfont\Large\bfseries}}%
+% \renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+%                                     {1ex plus -1ex minus -.2ex}%
+%                                     {1ex plus .2ex}%
+%                                     {\normalfont\large\bfseries}}%
+% \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+%                                     {1ex plus -1ex minus -.2ex}%
+%                                     {1ex plus .2ex}%
+%                                     {\normalfont\normalsize\bfseries}}
+% \renewcommand\paragraph{\@startsection{paragraph}{4}{0mm}%
+%                                    {1ex \@plus1ex \@minus.2ex}%
+%                                    {-1em}%
+%                                    {\normalfont\normalsize\bfseries}}
+% \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+%                                       {2.0ex \@plus1ex \@minus .2ex}%
+%                                       {-1em}%
+%                                      {\normalfont\normalsize\bfseries}}
+%\makeatother
+
+\newenvironment{proof}{{\bf Proof:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofof}[1]{{\bf Proof of #1:  }}{\hfill\rule{2mm}{2mm}}
+\newenvironment{proofofnobox}[1]{{\bf#1:  }}{}
+\newenvironment{example}{{\bf Example:  }}{\hfill\rule{2mm}{2mm}}
+%\renewcommand{\thesection}{\lecnum.\arabic{section}}
+
+%\renewcommand{\theequation}{\thesection.\arabic{equation}}
+%\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+
+%\renewcommand{\theequation}{\lecnum.\arabic{equation}}
+%\renewcommand{\thefigure}{\lecnum.\arabic{figure}}
+
+%\newcounter{LecNum}
+%\setcounter{LecNum}{1}
+
+%\newtheorem{fact}{Fact}[LecNum]
+\newtheorem{fact}{Fact}
+\newtheorem{lemma}[fact]{Lemma}
+\newtheorem{theorem}[fact]{Theorem}
+\newtheorem{definition}[fact]{Definition}
+\newtheorem{corollary}[fact]{Corollary}
+\newtheorem{proposition}[fact]{Proposition}
+\newtheorem{claim}[fact]{Claim}
+\newtheorem{exercise}[fact]{Exercise}
+
+% math notation
+\newcommand{\R}{\ensuremath{\mathbb R}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\SymGrp}{\ensuremath{\mathfrak S}}
+
+\newcommand{\size}[1]{\ensuremath{\left|#1\right|}}
+\newcommand{\ceil}[1]{\ensuremath{\left\lceil#1\right\rceil}}
+\newcommand{\floor}[1]{\ensuremath{\left\lfloor#1\right\rfloor}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\polylog}{\operatorname{polylog}}
+
+% anupam's abbreviations
+\newcommand{\e}{\epsilon}
+\newcommand{\half}{\ensuremath{\frac{1}{2}}}
+\newcommand{\junk}[1]{}
+\newcommand{\sse}{\subseteq}
+\newcommand{\union}{\cup}
+\newcommand{\meet}{\wedge}
+
+\newcommand{\prob}[1]{\ensuremath{\text{{\bf Pr}$\left[#1\right]$}}}
+\newcommand{\expct}[1]{\ensuremath{\text{{\bf E}$\left[#1\right]$}}}
+\newcommand{\Event}{{\mathcal E}}
+
+\newcommand{\mnote}[1]{\normalmarginpar \marginpar{\tiny #1}}
+
+\setenumerate[0]{label=(\alph*)}
+\hypersetup{
+colorlinks = true,
+urlcolor=blue}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document begins here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+\noindent {\large {\bf 600.468 Machine Tranlation} \hfill {{\bf Fall 2017}}}\\
+{{\bf Homework \#5 Neural Machine Translation}} \hfill {{\bf Name:} Yu Zhao, Fan Yang, Zikun Chen} \\
+
+\section{Experiment}
+\subsection{Dataset}
+We've chosen the g2p dataset since it took less to run on gcloud and our model didn't work well with original MT saved parameter.
+\subsection{Implementation}
+The whole NMT consists of three parts: encoder, decoder and generator.
+\subsubsection{Encoder}
+Encoder is a neural network with 
+\begin{enumerate}
+\item a word embedding layer of output size of 300 for source language
+\item a bidirectional LSTM with hidden size of 512 and 1 layer
+\end{enumerate}
+Every batch of source sentences goes through embedding layer first and then LSTM.
+
+We use \texttt{torch.nn.utils.rnn.pack\_padded\_sequence} to pack the embedded batch in order to do forward all at once instead of doing it for each time step.
+
+Output of Encoder is the output of its LSTM and LSTM's last hidden state. Since encoder's hidden size is half of decoder's hidden size and encoder has biRNN while decoder gets uniRNN, we concatenate the hidden state of encoder so it could be the initial hidden state of decoder's RNN. (shape: \texttt{(2, 1, 512) $\rightarrow$ (1, 1, 1024)})
+
+No word shift is need here.
+\subsubsection{Decoder}
+Decoder is a neural network with
+\begin{enumerate}
+\item a word embedding layer of output size of 300 for target language
+\item an unidirectional LSTM with hidden size of 1024 and 1 layer
+\item a Luong Attention layer with general score function $score = h_sWh_t$, which is also the one described in instruction of hw5.
+\end{enumerate}
+
+Since decoder concatenated context vector and the target embedding, we have to run forward for each time step. For each time step, firstly target input goes through embedding layer and then gets concatenated with decoder's last output. Next is to feed concatenated vector and encoder's output to attention layer and get final output.
+
+At time $t$, input should be (1) target input at $t$ during training \textbf{\emph{or}} NMT's output word at $t -1$ during translation, (2) output of attention layer at $t - 1$ (3) LSTM's hidden state at $t-1$, (4) encoder's output. Output should be (1) output of attention layer as output of decoder at $t$ (2) hidden state of LSTM at time $t$. For initial phrase time 0, last output of decoder should be empty and last hidden state should be hidden state of encoder.
+
+During training and validation, iteration ends at time $T = $ \texttt{trg\_seq\_len}. During translation, iteration stops when the output of decoder is \texttt{</s>}. Notice that we shift the target sentence here so input target sentence in our model should be like \texttt{<s>...} and expected output be like \texttt{...</s>}.
+\subsubsection{Generator}
+Generator we used is a simple linear layer and Softmax layer that transforms output of decoder into target words' distribution, then we could choose/predict the word with greatest probability. 
+\subsection{Modification}
+In order to fulfill some constraint of PyTorch, we've modified some starter code:
+\subsubsection{Batch}
+Since \texttt{torch.nn.utils.rnn.pack\_padded\_sequence} requires input to be in descending order while starter code gives us ascending order, we changed code in \texttt{utils\textbackslash tensor.py}. What's more, it requires all sentences to have length of at least 1 but starter code fills some empty sentences in the last batch, we changed the size of last batch as well, so it might be smaller than other batches.
+\subsubsection{Validation}
+During validation, we tell the NMT expected output length of specific batch so the loss could be computed.
+\section{Result}
+For model describe above, we got following negative log loss on dev set and our model converged at epoch 9:
+\begin{center}
+\begin{tabular}{ c c }
+ epoch & NLL\\
+ 1 & 1.29\\  
+ 2 & 0.82\\
+ 3 & 0.65\\
+ 4 & 0.56\\ 
+ 5 & 0.45\\
+ 6 & 0.41\\
+ 7 & 0.38\\
+ 8 & 0.37\\
+ 9 & 0.36\\
+\end{tabular}
+\end{center}
+And translation on test set on got WER of 0.42.
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
